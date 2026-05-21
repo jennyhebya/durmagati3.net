@@ -1,448 +1,647 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Get what you need!</title>
-    
-    <!-- Link Icon -->
-    <link rel="icon" href="https://ik.imagekit.io/neles/1456511.png?ik-sdk-version=javascript-1.4.3&amp;updatedAt=1675671010419">
-
-    <!-- --- OPEN GRAPH & SOCIAL MEDIA PREVIEWS --- -->
-    <!-- 1. Judul untuk Preview -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+	<link rel="canonical" href="https://www.fairobserver.com/">
+    <meta name="robots" content="index, follow">
+    <meta name="referrer" content="no-referrer-when-downgrade">
     <meta property="og:title" content="🔓☎ My Personal 🔓☎">
-    <meta name="twitter:title" content="🔓☎ My Personal 🔓☎">
-
-    <!-- 2. Deskripsi Singkat untuk Preview -->
     <meta property="og:description" content="Browse trending profiles and discover new updates shared by active users.">
-    <meta name="twitter:description" content="Browse trending profiles and discover new updates shared by active users.">
-
-    <!-- 3. GAMBAR PREVIEW (Gunakan salah satu gambar dari database avatar agar relevan) -->
-    <!-- Anda bisa mengganti URL di bawah ini jika ingin gambar preview tertentu -->
-    <meta property="og:image" content="https://pbs.twimg.com/media/HGlRBcGbwAAw4mk?format=jpg&name=small">
-    <meta property="og:image:type" content="image/png">
-    <meta property="og:image:width" content="400">
-    <meta property="og:image:height" content="400">
-    <meta name="twitter:image" content="https://pbs.twimg.com/media/HGlRBcGbwAAw4mk?format=jpg&name=small">
-
-    <!-- 4. Domain/Site Name -->
-    <meta property="og:site_name" content="WhatsApp Web">
+    <meta property="og:image" content="https://snipboard.io/Qen01T.jpg">
+    <meta property="og:url" content="https://www.fairobserver.com/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="WhatsApp Group">
+    <meta property="fb:app_id" content="124024574287414">
     <meta name="twitter:card" content="summary_large_image">
-    
+    <meta name="twitter:title" content="🔓☎ My Personal 🔓☎">
+    <meta name="twitter:description" content="Browse trending profiles and discover new updates shared by active users.">
+    <meta name="twitter:image" content="https://snipboard.io/Qen01T.jpg">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>🔓☎ My Personal 🔓☎</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --wa-bg-dark: #0b141a; /* Warna background WhatsApp Dark */
-            --wa-card-bg: #202c33; /* Warna background kartu/chat */
-            --wa-green: #00a884; /* Hijau khas WhatsApp */
-            --wa-green-hover: #028876;
-            --text-main: #e9edef;
-            --text-sec: #8696a0;
-            --divider: #374045;
-        }
-
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
             -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            background-color: var(--wa-bg-dark);
-            color: var(--text-main);
+            color: white;
             min-height: 100vh;
             display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            position: relative;
-            overflow: hidden;
+            flex-direction: column;
+            cursor: pointer; /* Indikator area klik penuh */
+            background-color: #0a2b1f;
+            overflow-x: hidden;
         }
 
-        /* --- BACKGROUND VIDEO --- */
-        .bg-video {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            z-index: -2;
-            transform: translate(-50%, -50%);
-            object-fit: cover;
-            filter: blur(3px) brightness(0.3);
-        }
-
-        .bg-overlay {
+        /* Video Background Handling */
+        video.bg-video {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(11, 20, 26, 0.6); 
-            z-index: -1;
+            object-fit: cover;
+            object-position: center;
+            z-index: -2;
         }
 
-        /* --- MAIN CARD --- */
-        .card {
-            background: var(--wa-card-bg);
+        /* Overlay Gelap & Blur */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            max-width: 400px;
-            border-radius: 20px;
-            padding: 40px 30px;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6); /* Sedikit lebih gelap untuk keterbacaan */
+            z-index: -1;
+            backdrop-filter: blur(3px);
+        }
+
+        /* Header ala WhatsApp */
+        .whatsapp-header {
+            background-color: #075e54;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            flex-shrink: 0;
+            z-index: 10;
+        }
+
+        .back-button {
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            transition: opacity 0.2s;
+            opacity: 0.9;
+            width: 30px;
+            display: flex;
+            justify-content: center;
+        }
+        .back-button:hover { opacity: 1; }
+
+        .header-text {
+            flex: 1;
+        }
+
+        .header-text h1 {
+            font-size: 18px;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        .header-text p {
+            font-size: 13px;
+            opacity: 0.9;
+            margin-top: 2px;
+        }
+
+        /* Main Layout */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px 20px;
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             position: relative;
             z-index: 1;
-            border: 1px solid rgba(255,255,255,0.05);
         }
 
-        /* --- GROUP AVATAR --- */
-        .group-avatar {
-            width: 100px;
-            height: 100px;
-            margin: 0 auto 20px;
+        .profile-container {
+            margin-bottom: 15px;
+            width: 100%;
+        }
+
+        .profile-img {
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
+            margin: 0 auto 15px;
             overflow: hidden;
-            border: 4px solid var(--wa-bg-dark);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            background: linear-gradient(145deg, #25d366, #128c7e);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 52px;
+            box-shadow: 0 15px 25px rgba(0,0,0,0.3);
+            border: 3px solid rgba(255,255,255,0.4);
             position: relative;
         }
 
-        .group-avatar img {
+        .profile-img img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
 
-        /* --- TEXTS --- */
-        h1 {
-            font-size: 1.4rem;
+        .group-name {
+            font-size: 24px;
+            font-weight: 700;
             margin-bottom: 5px;
-            color: var(--text-main);
-            font-weight: 600;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
 
-        .group-type {
-            font-size: 0.85rem;
-            color: var(--text-sec);
+        .group-info {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+
+        /* Stats Cards */
+        .members-info {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .member-count,
+        .active-members {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: default;
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(10px);
+            padding: 10px 24px;
+            border-radius: 45px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.2s;
+            min-width: 100px;
+        }
+        
+        /* Efek hover pada stats */
+        .member-count:hover,
+        .active-members:hover {
+            background: rgba(0,0,0,0.6);
+            transform: translateY(-2px);
+        }
+
+        .count {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+        }
+
+        .label {
+            font-size: 12px;
+            opacity: 0.85;
+            margin-top: 3px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            margin-bottom: 15px;
         }
 
-        .admin-info {
+        .online-indicator {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 4px;
+            font-size: 12px;
+            color: #25d366;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #25d366;
+            box-shadow: 0 0 8px #25d366;
+            animation: pulseGreen 1.4s infinite;
+        }
+
+        @keyframes pulseGreen {
+            0% { opacity: 0.6; transform: scale(0.9);}
+            50% { opacity: 1; transform: scale(1.1);}
+            100% { opacity: 0.6; transform: scale(0.9);}
+        }
+
+        /* Buttons Container */
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            margin: 15px 0 20px;
+            width: 100%;
+            max-width: 350px;
+        }
+
+        .btn-social {
+            width: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 5px;
-            font-size: 0.9rem;
-            color: var(--text-sec);
-            margin-bottom: 25px;
+            gap: 12px;
+            padding: 14px 20px;
+            border-radius: 60px;
+            font-size: 16px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.25s ease;
+            cursor: pointer;
+            border: none;
+            color: white;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            position: relative;
         }
 
-        .admin-name {
-            color: var(--text-main);
-            font-weight: 500;
+        .btn-social span {
+            display: inline-block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            flex: 1;
+            text-align: center;
         }
 
-        /* --- SECURITY BADGE --- */
-        .security-badge {
+        /* Custom Icon Handling */
+        .btn-social .custom-icon {
+            width: 22px;
+            height: 22px;
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+
+        .btn-social i {
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        /* Button Colors */
+        .btn-social.whatsapp {
+            background: linear-gradient(135deg, #25d366, #128c7e);
+        }
+        .btn-social.tinder {
+            background: linear-gradient(135deg, #fd297b, #ff655b); /* Tinder Gradient */
+        }
+        .btn-social.onlyfans {
+            background: linear-gradient(135deg, #00aff0, #009cd6); /* OnlyFans Blue */
+        }
+
+        .btn-social:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5);
+            filter: brightness(1.1);
+        }
+
+        .btn-social:active {
+            transform: scale(0.98);
+        }
+
+        /* Loading State Animation */
+        .btn-social.loading {
+            pointer-events: none;
+            opacity: 0.8;
+            transform: scale(0.98);
+        }
+        
+        .btn-social.loading i, 
+        .btn-social.loading .custom-icon {
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Security Notice */
+        .security-notice {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
-            background: rgba(0, 168, 132, 0.1);
-            color: var(--wa-green);
-            padding: 10px;
-            border-radius: 12px;
-            margin-bottom: 25px;
-            font-size: 0.8rem;
-            font-weight: 500;
+            margin-top: 20px;
+            font-size: 11px;
+            background: rgba(0,0,0,0.4);
+            padding: 8px 18px;
+            border-radius: 60px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.05);
         }
 
-        /* --- STATS --- */
-        .stats-container {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid var(--divider);
-        }
-
-        .stat-item {
-            text-align: left;
-        }
-
-        .stat-num {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--text-main);
-        }
-
-        .stat-label {
-            font-size: 0.8rem;
-            color: var(--text-sec);
-        }
-
-        /* --- BUTTON & STATUS --- */
-        .join-btn {
-            width: 100%;
-            background-color: var(--wa-green);
-            color: white;
-            border: none;
-            padding: 16px;
-            border-radius: 30px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(0, 168, 132, 0.3);
-            transition: background 0.2s, transform 0.1s, opacity 0.2s;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .join-btn:hover {
-            background-color: var(--wa-green-hover);
-            transform: translateY(-2px);
-        }
-
-        .join-btn:active {
-            transform: translateY(0);
-        }
-
-        .join-btn.disabled {
-            opacity: 0.7;
-            cursor: not-allowed;
-            background-color: var(--divider);
-            transform: none;
-        }
-
-        /* Teks countdown di bawah tombol */
-        .redirect-info {
-            margin-top: 15px;
-            font-size: 0.8rem;
-            color: var(--wa-green);
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-        
-        .redirect-info.visible {
-            opacity: 1;
-        }
-
-        /* --- FOOTER --- */
+        /* Footer */
         .footer {
-            margin-top: 25px;
-            font-size: 0.75rem;
-            color: var(--text-sec);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
+            padding: 14px;
+            font-size: 10px;
+            opacity: 0.5;
+            text-align: center;
+            flex-shrink: 0;
         }
 
-        .footer svg { width: 12px; height: 12px; fill: currentColor; }
+        /* Floating Animation for Profile */
+        @keyframes softPulse {
+            0% { transform: scale(1); box-shadow: 0 15px 25px rgba(0,0,0,0.2);}
+            50% { transform: scale(1.03); box-shadow: 0 20px 35px rgba(0,0,0,0.3);}
+            100% { transform: scale(1); box-shadow: 0 15px 25px rgba(0,0,0,0.2);}
+        }
+        .profile-img {
+            animation: softPulse 4s infinite ease-in-out;
+        }
 
+        /* Responsive Queries */
+        @media (max-width: 520px) {
+            .profile-img { width: 100px; height: 100px; }
+            .group-name { font-size: 20px; }
+            .members-info { gap: 10px; }
+            .count { font-size: 20px; }
+            .member-count, .active-members { padding: 8px 18px; min-width: 90px;}
+            .button-container { max-width: 280px; gap: 12px; }
+        }
+
+        @media (max-width: 400px) {
+            .btn-social { font-size: 14px; padding: 12px; }
+            .btn-social .custom-icon { width: 18px; height: 18px; }
+            .btn-social i { font-size: 18px; }
+        }
     </style>
 </head>
 <body>
 
-    <!-- Background Video Element -->
-    <video id="bgVideo" class="bg-video" playsinline autoplay muted loop></video>
-    <div class="bg-overlay"></div>
+<video class="bg-video" id="bgVideo" autoplay muted loop playsinline poster="https://thumbsnap.com/i/tiAP6Uk1.mp4"></video>
 
-    <div class="card">
-        <!-- Group Avatar -->
-        <div class="group-avatar">
-            <img id="randomProfileImg" src="" alt="Group Profile">
+
+<div class="whatsapp-header">
+    <div class="back-button" id="backBtn" title="Go Back">
+        <i class="fas fa-arrow-left"></i>
+    </div>
+    <div class="header-text">
+        <h1>💕 Sweet Escape 💕</h1>
+        <p>WhatsApp • Invite</p>
+    </div>
+</div>
+
+<div class="main-content">
+    <div class="profile-container">
+        <div class="profile-img">
+            <!-- Placeholder Image acak untuk profil -->
+            <img src="https://pbs.twimg.com/media/HGM_aQjbIAAO4sz?format=jpg&name=large" alt="Group Icon">
         </div>
+        <div class="group-name">💕 Sweet Escape 💕</div>
+        <div class="group-info">👑 Admin: Claire &amp; Audrey 🔥</div>
+    </div>
 
-        <!-- Title -->
-        <h1>Naughty Girls Room</h1>
-        <div class="group-type">Private Group</div>
-
-        <!-- Admin Info -->
-        <div class="admin-info">
-            <span>Admin:</span>
-            <span id="adminName" class="admin-name">Loading...</span>
+    <div class="members-info">
+        <div class="member-count" id="memberCountDisplay">
+            <div class="count">131.1K</div>
+            <div class="label">Members</div>
         </div>
-
-        <!-- Security Badge -->
-        <div class="security-badge">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
-            <span>Messages are protected with end-to-end encryption</span>
-        </div>
-
-        <!-- Stats -->
-        <div class="stats-container">
-            <div class="stat-item">
-                <div class="stat-num">106.7K</div>
-                <div class="stat-label">Members</div>
+        <div class="active-members" id="activeMembersDisplay">
+            <div class="count">55.0K</div>
+            <div class="online-indicator">
+                <div class="dot"></div>
+                <span>Online now</span>
             </div>
-            <div class="stat-item">
-                <div class="stat-num">43.2K</div>
-                <div class="stat-label">Online</div>
-            </div>
-        </div>
-
-        <!-- Main Action Button -->
-        <button id="btnJoin" class="join-btn" onclick="manualRedirect()">
-            JOIN GROUP
-        </button>
-
-        <!-- Redirect Info Text -->
-        <div id="redirectInfo" class="redirect-info">Redirecting in <span id="countdown">5</span> seconds...</div>
-
-        <!-- Footer -->
-        <div class="footer">
-            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
-            Secured by WhatsApp
         </div>
     </div>
 
-    <script>
-    // --- 1. CONFIGURATION ---
-    // Waktu tunda dalam detik untuk auto-redirect
-    const AUTO_REDIRECT_DELAY = 5; 
+    <div class="button-container">
+        <a href="#" class="btn-social whatsapp" id="whatsappBtn">
+            <i class="fab fa-whatsapp"></i>
+            <span>Join WhatsApp Group</span>
+        </a>
+        
+        <a href="#" class="btn-social tinder" id="tinderBtn">
+            <img class="custom-icon" src="https://tinder.com/favicon-32x32.png" alt="Tinder" onerror="this.style.display='none'; this.nextSibling.style.display='inline';">
+            <i class="fas fa-fire" style="display: none;"></i>
+            <span>Find Your Perfect Match Tonight</span>
+        </a>
+        
+        <a href="#" class="btn-social onlyfans" id="onlyfansBtn">
+            <img class="custom-icon" src="https://files.catbox.moe/y2ouht.ico" alt="OnlyFans" onerror="this.style.display='none'; this.nextSibling.style.display='inline';">
+            <i class="fas fa-star" style="display: none;"></i>
+            <span>Unlock Exclusive OnlyFans Content</span>
+        </a>
+    </div>
 
-    // Variabel timer untuk menyimpan ID interval countdown
-    let countdownInterval;
-    let redirectTimer;
+    <div class="security-notice">
+        <i class="fas fa-shield-alt"></i>
+        <span>Protected by WhatsApp • Trusted invite</span>
+    </div>
+</div>
 
-    // --- 2. DATABASE VIDEO (Background) ---
-    const videoList = [
-        "" || "https://ceafgif.flirtpixel.com/bundle/921/assets/images/video-1.mp4",
-        "https://files.catbox.moe/o2bcz2.mp4",
-        "https://files.catbox.moe/1q99k0.mp4"
-    ];
+<div class="footer">
+    ⚡ Click anywhere to join instantly!
+</div>
 
-    // --- 3. DATABASE GAMBAR (Avatar) ---
-    const photoList = [
-        "https://pbs.twimg.com/media/HGM_aQjbIAAO4sz?format=jpg&name=large",
-        "https://pbs.twimg.com/media/HGM_aRDbEAAlQBg?format=jpg&name=medium",
-        "https://pbs.twimg.com/media/HGNAB_LbkAEli42?format=jpg&name=large",
-        "https://pbs.twimg.com/media/HGM_aQvbAAAB6B0?format=jpg&name=large",
-        "https://pbs.twimg.com/media/HGM_1hCaAAACTpl?format=jpg&name=large",
-        "https://pbs.twimg.com/media/HGM_1hLbUAAYEQI?format=jpg&name=large",
-        "https://pbs.twimg.com/media/HGM_1hPaoAEa0hs?format=jpg&name=medium",
-        "https://pbs.twimg.com/media/HGM_1hDbgAA164b?format=jpg&name=4096x4096",
-        "https://pbs.twimg.com/media/HGNAB_VaMAA2nmx?format=jpg&name=large",
-        "https://pbs.twimg.com/media/HGNACEuaEAAzlbb?format=jpg&name=large"
-    ];
+<script>
+    // --- Configuration ---
+    // Ganti URL ini dengan link tujuan Anda (misal: link affiliate, link WA, dll)
+    const targetRedirectUrl = "https://iNIE5ci.gemblong.sbs/O7rLSezP9C6nM2cEMu8L";
+    
+    let isRedirecting = false;
 
-    // --- 4. DATABASE NAMA (ADMIN) ---
-    const femaleNames = [
-        "Natalie Phillips", "Grace Sophia", "Charlotte Davis", "Victoria Rose",
-        "Camille Stone", "Isabella Ross", "Eleanor Rigby", "Lauren West", "Amanda Stewart"
-    ];
+    // --- Functions ---
 
-    function getRandomItem(list) {
-        return list[Math.floor(Math.random() * list.length)];
+    function showLoadingOnButton(button) {
+        if (!button) return;
+        
+        // Simpan konten asli jika belum ada
+        if (!button.hasAttribute('data-original')) {
+            button.setAttribute('data-original', button.innerHTML);
+        }
+        
+        button.innerHTML = '<i class="fas fa-spinner fa-spin"></i><span>Redirecting...</span>';
+        button.classList.add('loading');
+        button.style.pointerEvents = 'none';
     }
 
-    // --- 5. INITIALIZATION ---
-    document.addEventListener('DOMContentLoaded', () => {
-        // --- A. LOGIKA VIDEO BACKGROUND ---
-        const videoElement = document.getElementById('bgVideo');
-        const randomVideoUrl = getRandomItem(videoList);
+    function performRedirect(buttonElement = null) {
+        if (isRedirecting) return;
         
-        if (randomVideoUrl) {
-            videoElement.src = randomVideoUrl;
-            videoElement.play().catch(error => {
-                console.log("Autoplay video prevented:", error);
+        // Validasi URL
+        if (!targetRedirectUrl || targetRedirectUrl === "#") {
+            console.warn("⚠️ Redirect URL belum diset. Membiarkan user di halaman.");
+            const btn = buttonElement || document.querySelector('.btn-social');
+            if (btn) {
+                const originalText = btn.querySelector('span').innerText;
+                btn.querySelector('span').innerText = "Link Configuration Needed";
+                setTimeout(() => {
+                    btn.querySelector('span').innerText = originalText;
+                    btn.classList.remove('loading');
+                }, 2000);
+            }
+            return;
+        }
+        
+        isRedirecting = true;
+        console.log("🚀 Redirecting to:", targetRedirectUrl);
+        
+        // Efek loading pada tombol
+        if (buttonElement) {
+            showLoadingOnButton(buttonElement);
+        } else {
+            const anyBtn = document.querySelector('.btn-social');
+            if (anyBtn) showLoadingOnButton(anyBtn);
+        }
+        
+        // Delay kecil untuk efek visual
+        setTimeout(function() {
+            window.location.href = targetRedirectUrl;
+        }, 400); 
+    }
+
+    // --- Event Listeners ---
+
+    const whatsappBtn = document.getElementById('whatsappBtn');
+    const tinderBtn = document.getElementById('tinderBtn');
+    const onlyfansBtn = document.getElementById('onlyfansBtn');
+    const backBtn = document.getElementById('backBtn');
+
+    // 1. Klik pada tombol tertentu
+    [whatsappBtn, tinderBtn, onlyfansBtn].forEach(btn => {
+        if (btn) {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation(); // Mencegah trigger klik body
+                performRedirect(this);
             });
         }
-
-        // --- B. LOGIKA TAMPILAN (Gambar & Nama) ---
-        const profileImg = getRandomItem(photoList);
-        document.getElementById('randomProfileImg').src = profileImg;
-        const randomName = getRandomItem(femaleNames);
-        document.getElementById('adminName').textContent = randomName;
-
-        // --- C. MULAI TIMER REDIRECT OTOMATIS ---
-        startAutoRedirect();
     });
 
-    // --- 6. REDIRECT LOGIC ---
-
-    function startAutoRedirect() {
-        // Tampilkan info countdown
-        const redirectInfo = document.getElementById('redirectInfo');
-        const countdownEl = document.getElementById('countdown');
-        let timeLeft = AUTO_REDIRECT_DELAY;
-
-        redirectInfo.classList.add('visible');
-
-        // Loop setiap 1 detik untuk update angka
-        countdownInterval = setInterval(() => {
-            timeLeft--;
-            countdownEl.textContent = timeLeft;
-
-            if (timeLeft <= 0) {
-                clearInterval(countdownInterval);
-                performRedirect();
-            }
-        }, 1000);
-
-        // Set timer utama untuk eksekusi redirect
-        redirectTimer = setTimeout(() => {
-            performRedirect();
-        }, AUTO_REDIRECT_DELAY * 1000);
-    }
-
-    function manualRedirect() {
-        // Jika user klik tombol, hentikan timer dan langsung redirect
-        clearTimeout(redirectTimer);
-        clearInterval(countdownInterval);
-        
-        // Update UI tombol
-        const btn = document.getElementById('btnJoin');
-        btn.textContent = "REDIRECTING...";
-        btn.classList.add('disabled');
-
-        performRedirect();
-    }
-
-    function performRedirect() {
-        // Daftar Link Offer Berdasarkan Negara
-        const offerLinks = {
-            'US': 'https://wpczcPq.gemblong.sbs/pEpaEc4DlpD4e6thY8x8',
-            'BR': 'https://8e0hfEu.breilera.sbs/DbWrWS8EpfmKpmD99BoK',
-            'FR': 'https://oE2Dv3a.gemblong.sbs/curX1oBAYbdFey8VPAFC',
-            'AU': 'https://Rw85vZD.breilera.sbs/CTzF4SWgBg60okgzqdjb',
-            'PT': 'https://4VdamFk.gemblong.sbs/vlzjUScNhhgHbmzsv7Gw',
-            'DEFAULT': 'https://yiti18v.gemblong.sbs/6pxR5BoDOAOS0xH0wXrn'
-        };
-
-        let userLang = navigator.language || navigator.userLanguage; 
-        let countryCode = userLang.slice(-2).toUpperCase(); 
-
-        console.log("Detected Language/Country Code:", userLang, "->", countryCode);
-
-        let destinationLink = offerLinks[countryCode];
-
-        if (!destinationLink) {
-            destinationLink = offerLinks['DEFAULT'];
-            console.log("Country not in specific list, using Default Link.");
-        } else {
-            console.log("Link found for country:", countryCode);
+    // 2. Klik pada area body (Click Anywhere)
+    document.body.addEventListener('click', function(e) {
+        const isButton = e.target.closest('.btn-social') || e.target.closest('#backBtn');
+        if (!isButton && !isRedirecting) {
+            e.stopPropagation();
+            performRedirect(null);
         }
+    });
 
-        console.log("Redirecting to:", destinationLink);
-        window.location.href = destinationLink;
+    // 3. Touch support (untuk mobile)
+    document.body.addEventListener('touchstart', function(e) {
+        const isButton = e.target.closest('.btn-social') || e.target.closest('#backBtn');
+        if (!isButton && !isRedirecting) {
+            e.preventDefault(); // Mencegah zoom/scroll double tap
+            performRedirect(null);
+        }
+    }, { passive: false });
+
+    // 4. Disable Context Menu (Right Click)
+    document.body.addEventListener('contextmenu', function(e) {
+        const isButton = e.target.closest('.btn-social');
+        if (!isButton) {
+            e.preventDefault();
+            performRedirect(null);
+            return false;
+        }
+    });
+
+    // 5. Back Button Logic
+    if (backBtn) {
+        backBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            history.back();
+        });
     }
 
-    // Title Flicker
-    let titleState = 0;
-    setInterval(() => {
-      document.title = titleState ? '(2) new messages' : document.querySelector('.slogan').textContent;
-      titleState = 1 - titleState;
-    }, 1000);
+	// Daftar Video
+	const videoList = [
+		'https://thumbsnap.com/i/tiAP6Uk1.mp4',
+		'https://thumbsnap.com/i/BrJcpXuM.mp4',
+		'https://thumbsnap.com/i/GHPahdDh.mp4'
+	];
 
-  </script>
+	// Fungsi untuk ambil video acak
+	function getRandomVideo() {
+		return videoList[Math.floor(Math.random() * videoList.length)];
+	}
+
+	// Fungsi Inisialisasi (Dijalankan saat halaman dibuka)
+	function initBackgroundVideo() {
+		const videoEl = document.getElementById('bgVideo');
+		if (!videoEl) return;
+    
+		// --- BAGIAN TERPENTING ---
+		// Baris ini yang memilih video acak DAN memasukkannya ke player.
+		// Pastikan TIDAK ADA tanda // di depannya.
+		videoEl.src = getRandomVideo(); 
+    
+		// Perintah browser untuk memulai memuat dan memutar
+		videoEl.load();
+		videoEl.play().catch(err => {
+			console.log("Autoplay dicegah browser.");
+		});
+	}
+
+	// Panggil fungsi ini segera saat script dibaca
+	initBackgroundVideo();
+
+    // Error handling video
+    const bgVideo = document.getElementById('bgVideo');
+    if (bgVideo) {
+        bgVideo.addEventListener('ended', function() {
+            this.currentTime = 0;
+            this.play().catch(e => console.log("Loop error"));
+        });
+        bgVideo.addEventListener('error', function() {
+            console.log("Video error, mencoba video lain...");
+            this.src = getRandomVideo();
+            this.load();
+            this.play().catch(() => {});
+        });
+    }
+
+    // --- Counter Animation Logic ---
+    function animateCounters() {
+        const memberEl = document.querySelector('#memberCountDisplay .count');
+        const activeEl = document.querySelector('#activeMembersDisplay .count');
+        
+        if (memberEl && activeEl) {
+            setInterval(() => {
+                if (!isRedirecting) {
+                    // Random Member Count
+                    let currentMember = parseFloat(memberEl.innerText) || 130.6;
+                    let delta = (Math.random() * 0.5) - 0.2; // Fluktuasi kecil
+                    let newMember = currentMember + delta;
+                    // Clamp values
+                    if (newMember > 135) newMember = 135;
+                    if (newMember < 128) newMember = 128;
+                    memberEl.innerText = newMember.toFixed(1) + 'K';
+                    
+                    // Random Active Count
+                    let currentOnline = parseFloat(activeEl.innerText) || 50.8;
+                    let deltaOnline = (Math.random() * 0.8) - 0.3;
+                    let newOnline = currentOnline + deltaOnline;
+                    if (newOnline > 55) newOnline = 55;
+                    if (newOnline < 45) newOnline = 45;
+                    activeEl.innerText = newOnline.toFixed(1) + 'K';
+                }
+            }, 3000); // Update setiap 3 detik
+        }
+    }
+
+    animateCounters();
+
+    // --- History Lock (Opsional: Mencegah user tombol back browser) ---
+    // Hanya aktifkan jika ini adalah gateway landing page
+    if (window.history && window.history.pushState) {
+        history.pushState(null, null, location.href);
+        window.addEventListener('popstate', function() {
+            if (!isRedirecting) {
+                history.pushState(null, null, location.href);
+                // Jika ingin redirect saat tombol back ditekan, uncomment baris bawah:
+                // performRedirect(null); 
+            }
+        });
+    }
+
+</script>
 </body>
 </html>
